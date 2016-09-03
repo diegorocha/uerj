@@ -1,0 +1,21 @@
+li { display: inline; }
+.ativo { color: blue; font-weight: bold; }
+
+.cr { float: left; }
+.both { clear: both; }
+
+.default {
+	padding: 40p 15px;
+	text-align: center;
+}
+
+.table th {
+   text-align: center;
+}
+.logo {
+	margin: auto;
+}
+
+#horarios .table {
+    display: none;
+}

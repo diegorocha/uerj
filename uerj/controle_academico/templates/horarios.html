@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="default">
+    <h1>Horários do Período {{ view.data.periodo }}</h1>
+    <ul>
+        <li class="seletor-dia" id="Seg">Seg</li>
+        <li class="seletor-dia" id="Ter">Ter</li>
+        <li class="seletor-dia" id="Qua">Qua</li>
+        <li class="seletor-dia" id="Qui">Qui</li>
+        <li class="seletor-dia" id="Sex">Sex</li>
+        <li class="seletor-dia" id="Sab">Sab</li>
+    </ul>
+    <div class="panel" id="horarios">
+        {% for dia in view.data.horarios %}
+        <div>
+            <table class="table table-bordered table-striped" id="{{dia.dia}}">
+                <thead>
+                    <th>Início</th>
+                    <th>Fim</th>
+                    <th>Disciplina</th>
+                    <th>Professor</th>
+                    <th>Sala</th>
+                </thead>
+                <tbody>
+                    {% for horario in dia.horarios %}
+                    <tr>
+                        <td>{{horario.horario_inicial.inicio|date:'H:i'}}</td>
+                        <td>{{horario.horario_final.final|date:'H:i'}}</td>
+                        <td>{{horario.disciplina_cursada.disciplina.nome}}</td>
+                        <td>{{horario.disciplina_cursada.professor}}</td>
+                        <td>{{horario.sala}}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">Nenhuma aula nesse dia</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_js %}
+<script src="{% static 'js/horarios.js' %}"></script>
+{% endblock %}

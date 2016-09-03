@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="default">
+    <h1>Disciplinas Cursadas</h1>
+    <ul class="lista-periodos">
+        <li class="selecao-periodo" id="">Todos&nbsp;&nbsp;</li>
+        {% for periodo in view.data.periodos %}
+        <li class="selecao-periodo" id="{{periodo.ano}}_{{periodo.semestre}}">{{ periodo }}&nbsp;&nbsp;</li>
+        {% endfor %}
+    </ul>
+    <div>
+        <div class="cr">
+            <p>Coeficiente de Rendimento:&nbsp;</p>
+        </div>
+        <div class="cr">
+            <p id="cr"></p>
+        </div>
+        <div class="both"></div>
+    </div>
+    <div class="panel panel-default">
+        <table class="table table-striped">
+            <thead>
+                <th>Período</th>
+                <th>Disciplina</th>
+                <th>Nota</th>
+                <th>Situação</th>
+            </thead>
+            <tbody>
+                {% for disciplina_cursada in view.data.disciplinas_cursadas %}
+                <tr class="disciplina {{disciplina_cursada.periodo.ano}}_{{disciplina_cursada.periodo.semestre}}">
+                    <td>{{ disciplina_cursada.periodo }}</td>
+                    <td>{{ disciplina_cursada.disciplina.nome }}</td>
+                    <td>{{ disciplina_cursada.nota }}</td>
+                    <td>{{ disciplina_cursada.situacao }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_js %}
+<script src="{% static 'js/historico.js' %}"></script>
+{% endblock %}

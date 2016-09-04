@@ -32,7 +32,7 @@
                 <tr class="disciplina {{disciplina_cursada.periodo.ano}}_{{disciplina_cursada.periodo.semestre}}">
                     <td>{{ disciplina_cursada.periodo }}</td>
                     <td>{{ disciplina_cursada.disciplina.nome }}</td>
-                    <td>{{ disciplina_cursada.nota }}</td>
+                    <td>{{ disciplina_cursada.nota | default_if_none:""}}</td>
                     <td>{{ disciplina_cursada.situacao }}</td>
                 </tr>
                 {% endfor %}

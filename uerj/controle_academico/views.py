@@ -1,13 +1,14 @@
 # coding: utf-8
 import models
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class HomeView(generic.TemplateView):
     template_name = 'home.html'
 
 
-class HorarioView(generic.TemplateView):
+class HorarioView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'horarios.html'
 
     def data(self):
@@ -26,7 +27,7 @@ class HorarioView(generic.TemplateView):
         return data
 
 
-class HistoricoView(generic.TemplateView):
+class HistoricoView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'historico.html'
 
     def data(self):

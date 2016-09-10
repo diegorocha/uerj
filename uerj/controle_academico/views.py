@@ -35,3 +35,15 @@ class HistoricoView(LoginRequiredMixin, generic.TemplateView):
         data['periodos'] = models.Periodo.objects.all()
         data['disciplinas_cursadas'] = models.DisciplinaCursada.objects.all().order_by('periodo',)
         return data
+
+
+class DisciplinasACursarView(LoginRequiredMixin, generic.TemplateView):
+    template_name = 'a-cursar.html'
+
+    def data(self):
+        total_eletivas = 5
+        data = {}
+        data['obrigatorias'] = models.Disciplina.objects.filter(tipo='O').order_by('periodo_sugerido', 'codigo')
+        data['obrigatorias_faltando'] = models.Disciplina.objects.filter(tipo='O', aprovado=False).count()
+        data['eletivas_faltando'] = total_eletivas - models.Disciplina.objects.filter(tipo='E', disciplinacursada__situacao='AP').count()
+        return data

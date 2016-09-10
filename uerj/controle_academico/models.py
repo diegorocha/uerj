@@ -39,6 +39,8 @@ class Disciplina(models.Model):
     carga_horaria = models.IntegerField('Carga Horaria')
     carga_horaria_semanal = models.IntegerField('Carga Horaria Semanal')
     tipo = models.CharField('Tipo', max_length=1, choices=TIPO_CHOICES, default=UNIVERSAL)
+    periodo_sugerido = models.IntegerField('Período', blank=True, null=True)
+    aprovado = models.BooleanField('Aprovado', blank=True, null=False, default=False)
 
     def __unicode__(self):
         return '%s %02d-%s %s' % (self.unidade.sigla, self.departamento, self.codigo, self.nome)
@@ -77,6 +79,12 @@ class DisciplinaCursada(models.Model):
     professor = models.CharField('Professor', max_length=100, null=True, blank=True)
     nota = models.FloatField('Nota', null=True, blank=True)
     situacao = models.CharField('Situação', max_length=2, choices=SITUACAO_CHOICES, default=ACEITO)
+
+    def save(self, *args, **kwargs):
+        super(DisciplinaCursada, self).save(*args, **kwargs)
+        if self.situacao == self.APROVADO and not self.disciplina.aprovado:
+            self.disciplina.aprovado = True
+            self.disciplina.save()
 
     def __unicode__(self):
         return '%s em %s' % (self.disciplina.nome, self.periodo)

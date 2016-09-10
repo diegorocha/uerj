@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^$', views.HomeView.as_view(), name='home'),
     url(r'^horarios/$', views.HorarioView.as_view(), name='horarios'),
     url(r'^historico/$', views.HistoricoView.as_view(), name='historico'),
+    url(r'^a-cursar/$', views.DisciplinasACursarView.as_view(), name='a-cursar'),
     url(r'^api/', include(router.urls, namespace='api')),
 ]

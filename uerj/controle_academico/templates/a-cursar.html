@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="default">
+    <h1>Disciplinas A Cursar</h1>
+    <div class="text-left">
+        <p>Obrigatórias Restantes: {{view.data.obrigatorias_faltando}}</p>
+        <p>Eletivas Restantes: {{view.data.eletivas_faltando}}</p>
+    </div>
+    <div class="panel panel-default">
+        <table class="table">
+            <thead>
+                <th>Período</th>
+                <th>Disciplina</th>
+                <th>Aprovado</th>
+                <th>Créditos</th>
+            </thead>
+            <tbody>
+                {% for disciplina in view.data.obrigatorias %}
+                <tr class="{{ disciplina.aprovado|yesno:'success,' }}">
+                    <td>{{ disciplina.periodo_sugerido }}</td>
+                    <td>{{ disciplina.nome }}</td>
+                    <td>{{ disciplina.aprovado }}</td>
+                    <td>{{ disciplina.creditos }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_js %}
+<script src="{% static 'js/historico.js' %}"></script>
+{% endblock %}

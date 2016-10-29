@@ -1,14 +1,3 @@
-"""
-Django settings for uerj project on Heroku. Fore more info, see:
-https://github.com/heroku/heroku-django-template
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.9/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.9/ref/settings/
-"""
-
 import os
 from decouple import config
 from dj_database_url import parse as db_url
@@ -116,7 +105,7 @@ USE_TZ = True
 # db_from_env = dj_database_url.config(conn_max_age=500)
 # DATABASES['default'].update(db_from_env)
 
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
@@ -138,3 +127,17 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_URL = '/admin/login/'
+
+ADMINS = (('Diego Rocha', 'diego@diegorocha.com.br'),)
+
+if config('USE_SMTP', default=False, cast=bool):
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+    EMAIL_HOST = config('EMAIL_HOST')
+    EMAIL_PORT = config('EMAIL_PORT')
+    EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+    EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
+    EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

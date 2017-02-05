@@ -1,6 +1,6 @@
 # coding: utf-8
-import models
-import serializers
+from uerj.controle_academico import models
+from uerj.controle_academico import serializers
 from rest_framework import viewsets
 from django.shortcuts import render
 

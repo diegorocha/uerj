@@ -1,4 +1,4 @@
-import models
+from uerj.controle_academico import models
 from rest_framework import serializers
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-import models
+from uerj.controle_academico import models
 
 
 @admin.register(models.Unidade)

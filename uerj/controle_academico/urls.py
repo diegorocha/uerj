@@ -1,5 +1,5 @@
-import api
-import views
+from uerj.controle_academico import api
+from uerj.controle_academico import views
 from rest_framework import routers
 from django.conf.urls import url, include
 

@@ -1,5 +1,5 @@
 # coding: utf-8
-import models
+from uerj.controle_academico import models
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 

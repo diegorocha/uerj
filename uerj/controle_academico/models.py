@@ -2,8 +2,10 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class Unidade(models.Model):
     class Meta:
         verbose_name = 'Unidade'
@@ -12,12 +14,13 @@ class Unidade(models.Model):
     sigla = models.CharField('Sigla', max_length=5)
     nome = models.CharField('Nome', max_length=50)
 
-    def __unicode__(self):
+    def __str__(self):
         if self.sigla and self.nome:
             return '%s - %s' % (self.sigla, self.nome)
         return 'Unidade'
 
 
+@python_2_unicode_compatible
 class Disciplina(models.Model):
     class Meta:
         verbose_name = 'Disciplina'
@@ -42,10 +45,11 @@ class Disciplina(models.Model):
     periodo_sugerido = models.IntegerField('Período', blank=True, null=True)
     aprovado = models.BooleanField('Aprovado', blank=True, null=False, default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s %02d-%s %s' % (self.unidade.sigla, self.departamento, self.codigo, self.nome)
 
 
+@python_2_unicode_compatible
 class Periodo(models.Model):
     class Meta:
         verbose_name = 'Período'
@@ -54,10 +58,11 @@ class Periodo(models.Model):
     semestre = models.IntegerField('Semestre', validators=[MinValueValidator(1), MaxValueValidator(2)])
     atual = models.BooleanField('Atual', default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%d/%d' % (self.ano, self.semestre)
 
 
+@python_2_unicode_compatible
 class DisciplinaCursada(models.Model):
     class Meta:
         verbose_name = 'Disciplina Cursada'
@@ -86,10 +91,11 @@ class DisciplinaCursada(models.Model):
             self.disciplina.aprovado = True
             self.disciplina.save()
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s em %s' % (self.disciplina.nome, self.periodo)
 
 
+@python_2_unicode_compatible
 class Horario(models.Model):
     class Meta:
         verbose_name = 'Horário'
@@ -98,10 +104,11 @@ class Horario(models.Model):
     inicio = models.TimeField('Início')
     final = models.TimeField('Final')
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s [%s - %s]' % (self.sigla, self.inicio, self.final)
 
 
+@python_2_unicode_compatible
 class HorarioAula(models.Model):
     class Meta:
         verbose_name = 'Horário Aula'
@@ -146,5 +153,5 @@ class HorarioAula(models.Model):
         if self.horario_final:
             return self.horario_final.final
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s as %s - %s' % (self.disciplina_cursada.disciplina.nome, self.dia, self.horario_inicial)

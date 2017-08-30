@@ -4,4 +4,5 @@ from django.apps import AppConfig
 
 
 class ControleAcademicoConfig(AppConfig):
-    name = 'controle_academico'
+    name = 'uerj.controle_academico'
+    verbose_name = 'Controle Acadêmico'

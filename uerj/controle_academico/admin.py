@@ -2,6 +2,11 @@ from django.contrib import admin
 from uerj.controle_academico import models
 
 
+class HorarioAulaInline(admin.TabularInline):
+    model = models.HorarioAula
+    extra = 0
+
+
 @admin.register(models.Unidade)
 class UnidadeAdmin(admin.ModelAdmin):
     pass
@@ -14,13 +19,14 @@ class DisciplinaAdmin(admin.ModelAdmin):
 
 @admin.register(models.Periodo)
 class PeriodoAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['__str__', 'atual']
 
 
 @admin.register(models.DisciplinaCursada)
 class DisciplinaCursadaAdmin(admin.ModelAdmin):
     list_display = ['periodo', 'disciplina', 'professor', 'nota', 'situacao']
     list_filter = ['periodo', 'situacao']
+    inlines = (HorarioAulaInline, )
 
 
 @admin.register(models.Horario)

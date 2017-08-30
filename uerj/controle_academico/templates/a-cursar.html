@@ -21,7 +21,7 @@
                 <tr class="{{ disciplina.aprovado|yesno:'success,' }}">
                     <td>{{ disciplina.periodo_sugerido }}</td>
                     <td>{{ disciplina.nome }}</td>
-                    <td>{{ disciplina.aprovado }}</td>
+                    <td>{{ disciplina.aprovado|yesno:"Sim,Não" }}</td>
                     <td>{{ disciplina.creditos }}</td>
                 </tr>
                 {% endfor %}

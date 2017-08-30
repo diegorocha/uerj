@@ -54,6 +54,7 @@ class Periodo(models.Model):
     class Meta:
         verbose_name = 'Período'
         verbose_name_plural = 'Períodos'
+        ordering = ('ano', 'semestre')
     ano = models.IntegerField('Ano', validators=[MinValueValidator(2011)])
     semestre = models.IntegerField('Semestre', validators=[MinValueValidator(1), MaxValueValidator(2)])
     atual = models.BooleanField('Atual', default=False)
